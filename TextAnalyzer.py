@@ -22,7 +22,7 @@ def count_words(rdd):
 
     Input:
     - rdd: an RDD containing the contents of a file, with one sentence in each element.
-
+#Adding a line for git commit
     
     Return value: The total number of words in the file.
     """
