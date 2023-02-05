@@ -100,7 +100,7 @@ if __name__ == "__main__":
       # count = compute_counts()
       lines = sc.textFile(args.input, args.N)
       count = compute_counts(lines)
-      output = count.sortBy(lambda x: x[2]).collect()
+      output = count.sortBy(lambda x: x[1]).collect()
       for (word, counts) in output:
           print("%s: %i" % (word, counts))
     end = time()
