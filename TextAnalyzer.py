@@ -90,5 +90,8 @@ if __name__ == "__main__":
     if(args.mode == "SEN"):
       count = count_sentences(lines)
       print(f"Total count of sentences in {args.input} is {count}")
+    elif(args.mode == "WRD"):
+      count = count_words(lines)
+      print(f"Total count of words in {args.input} is {count}")
     end = time()
     print('Total execution time:',str(end-start)+'sec')
