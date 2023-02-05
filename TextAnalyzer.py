@@ -46,7 +46,11 @@ def compute_counts(rdd,numPartitions = 10):
     in the file. The returned RDD should have a number of partitions given by numPartitions.
 
     """
-    pass
+    # pass
+    count = rdd.flatMap(lambda line: line.split(" ")) \
+      .map(lambda word: (word,1)) \
+        .reduceByKey(lambda x,y: x + y)
+    return count
     
 
 def count_difficult_words(counts,easy_list):
@@ -91,5 +95,8 @@ if __name__ == "__main__":
     elif(args.mode == "WRD"):
       count = count_words(lines)
       print(f"Total count of words in {args.input} is {count}")
+    elif(args.mode == "UNQ"):
+      # count = compute_counts()
+      count = sc.textFile(args.input, args.N)
     end = time()
     print('Total execution time:',str(end-start)+'sec')
