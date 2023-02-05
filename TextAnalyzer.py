@@ -97,6 +97,10 @@ if __name__ == "__main__":
       print(f"Total count of words in {args.input} is {count}")
     elif(args.mode == "UNQ"):
       # count = compute_counts()
-      count = sc.textFile(args.input, args.N)
+      lines = sc.textFile(args.input, args.N)
+      count = compute_counts(lines)
+      output = count.collect()
+      for (word, counts) in output:
+          print("%s: %i" % (word, counts))
     end = time()
     print('Total execution time:',str(end-start)+'sec')
