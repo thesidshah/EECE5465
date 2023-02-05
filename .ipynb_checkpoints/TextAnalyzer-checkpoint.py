@@ -4,7 +4,7 @@ import findspark
 findspark.init()
 from time import time
 from pyspark import SparkContext
-from operator import add
+
 def count_sentences(rdd):
     """ Count the sentences in a file.
 
@@ -15,8 +15,7 @@ def count_sentences(rdd):
 		.reduce(add)
     Return value: The total number of sentences in the file.
     """
-    return rdd.map(lambda x:1)\
-		.reduce(add)
+    pass
 
 def count_words(rdd):
     """ Count the number of words in a file.
@@ -27,11 +26,7 @@ def count_words(rdd):
     
     Return value: The total number of words in the file.
     """
-    count = rdd.flatMap(lambda line:line.split()) \
-    .map(lambda word: (word,1)) \
-    .reduceByKey(lambda x,y:x + y)
-    return count
-    # pass
+    pass
 
 def compute_counts(rdd,numPartitions = 10):
     """ Produce an rdd that contains the number of occurences of each word in a file.
@@ -86,9 +81,7 @@ if __name__ == "__main__":
     start = time()
 
     # Add tour code here
-    lines = sc.textFile(args.input)
-    if(args.mode == "SEN"):
-      count = count_sentences(lines)
-      print(f"Total count of sentences in {args.input} is {count}")
+    
+
     end = time()
     print('Total execution time:',str(end-start)+'sec')

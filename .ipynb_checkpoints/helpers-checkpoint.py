@@ -33,7 +33,7 @@ def strip_non_alpha(s):
     return s
 
 
-def is_inflection_of(s2,s1):
+def is_inflection_of(s1,s2):
     """ Tests if s1 is a common inflection of s2. 
 
     The function first (a) converts both strings to lowercase and (b) strips
@@ -48,10 +48,11 @@ def is_inflection_of(s2,s1):
     (e) ed
     (f) d
     """
-    s2 = strip_non_alpha(s2)
-    s2 = to_lower_case(s2)
     s1 = strip_non_alpha(s1)
-    s1 = to_lower_case(s1)
+    s1 = s1.lower()
+    s2 = strip_non_alpha(s2)
+    s2 = s2.lower()
+    print(s1+'ed',s2)
     if(s1==(s2)):
         return True
     elif(s2==(s1+'\'s')):
@@ -72,7 +73,7 @@ def is_inflection_of(s2,s1):
 
 def same(s1,s2):
     "Return True if one of the input strings is the inflection of the other."
-    return is_inflection_of(s1,s2)
+    pass
 
 def find_match(word,word_list):
     """Given a word, find a string in a list that is "the same" as this word.
@@ -87,12 +88,18 @@ def find_match(word,word_list):
     The string word is 'the same' as some string x in word_list, if word is the inflection of x,
     ignoring cases and leading or trailing non-alphabetic characters.
     """
-    for i in word_list:
-        if(same(i,word)):
-            return True
-    return False
+    pass
 
 if __name__=="__main__":
+    
+    # Test strip_non_alpha
+
     s = "!!sid"
-    assert strip_non_alpha(s) == "sid"
-    assert is_inflection_of('!!sed','!S')
+#     assertEqual(strip_non_alpha(s),"sidd")
+    print(strip_non_alpha(s))
+    print(is_inflection_of('!!s','!Sed'))
+    # Test is_inflection_of and same
+
+    # Test find_match 
+    
+    pass
