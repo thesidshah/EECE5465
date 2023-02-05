@@ -107,8 +107,8 @@ if __name__ == "__main__":
       lines = sc.textFile(args.input, args.N)
       count = compute_counts(lines)
       output = count.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
-      for (word, counts) in output:
-          print("%s: %s" % (word, counts))
+      for (counts, word) in output:
+          print("%s: %i" % (word, counts))
       
     end = time()
     print('Total execution time:',str(end-start)+'sec')
