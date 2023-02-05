@@ -108,7 +108,7 @@ if __name__ == "__main__":
       count = compute_counts(lines)
       output = count.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
       for (word, counts) in output:
-          print("%s: %i" % (word, counts))
+          print("%s: %s" % (word, counts))
       
     end = time()
     print('Total execution time:',str(end-start)+'sec')
