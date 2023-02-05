@@ -103,5 +103,12 @@ if __name__ == "__main__":
       output = count.sortBy(lambda x: x[1]).collect()
       for (word, counts) in output:
           print("%s: %i" % (word, counts))
+    elif(args.mode == "TOP20"):
+      lines = sc.textFile(args.input, args.N)
+      count = compute_counts(lines)
+      output = count.map(lambda (k,v): (v,k)).sortByKey(False).take(20)
+      for (word, counts) in output:
+          print("%s: %i" % (word, counts))
+      
     end = time()
     print('Total execution time:',str(end-start)+'sec')
