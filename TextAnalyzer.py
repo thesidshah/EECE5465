@@ -27,7 +27,7 @@ def count_words(rdd):
     """
     count = rdd.flatMap(lambda line:line.split(" ")) \
     .map(lambda word: 1) \
-    .reduceByKey(lambda x,y:x + y)
+    .reduce(add)
     return count
     # pass
 
