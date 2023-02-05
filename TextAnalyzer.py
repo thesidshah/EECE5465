@@ -30,7 +30,7 @@ def count_words(rdd):
     .reduce(add)
     return count
     # pass
-
+from helpers import to_lower_case, strip_non_alpha
 def compute_counts(rdd,numPartitions = 10):
     """ Produce an rdd that contains the number of occurences of each word in a file.
 
@@ -48,8 +48,9 @@ def compute_counts(rdd,numPartitions = 10):
     """
     # pass
     count = rdd.flatMap(lambda line: line.split(" ")) \
-      .map(lambda word: (word,1)) \
-        .reduceByKey(lambda x,y: x + y)
+      .map(lambda word: strip_non_alpha(to_lower_case(word))) \
+        .map(lambda word: (word,1)) \
+          .reduceByKey(lambda x,y: x + y) 
     return count
     
 
@@ -99,7 +100,7 @@ if __name__ == "__main__":
       # count = compute_counts()
       lines = sc.textFile(args.input, args.N)
       count = compute_counts(lines)
-      output = count.collect()
+      output = count.sortBy(lambda x: x[2]).collect()
       for (word, counts) in output:
           print("%s: %i" % (word, counts))
     end = time()
