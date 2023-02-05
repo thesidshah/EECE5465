@@ -23,12 +23,10 @@ def count_words(rdd):
 
     Input:
     - rdd: an RDD containing the contents of a file, with one sentence in each element.
-#Adding a line for git commit
-    
     Return value: The total number of words in the file.
     """
-    count = rdd.flatMap(lambda line:line.split()) \
-    .map(lambda word: (word,1)) \
+    count = rdd.flatMap(lambda line:line.split(" ")) \
+    .map(lambda word: 1) \
     .reduceByKey(lambda x,y:x + y)
     return count
     # pass
