@@ -111,7 +111,7 @@ if __name__ == "__main__":
       output = count.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
       for (counts, word) in output:
           print("%s: %i" % (word, counts))
-    elif(args.mode == ""):
+    elif(args.mode == "DFF"):
         easy_words = create_list_from_file(args.simple_words)
         diff_words = count_difficult_words(lines, easy_words).collect()
         print(diff_words)
