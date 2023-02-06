@@ -70,7 +70,9 @@ def count_difficult_words(counts,easy_list):
     if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
     """
     # pass   
-    return counts.filter(lambda x: find_match(x, easy_list))
+    return counts.filter(lambda x: not find_match(x, easy_list)) \
+      .map(lambda word: (word,1)) \
+          .reduceByKey(lambda x,y: x + y) 
 
 
 
