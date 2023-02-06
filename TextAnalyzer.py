@@ -71,8 +71,7 @@ def count_difficult_words(counts,easy_list):
     """
     # pass   
     return counts.filter(lambda x: not find_match(x[0], easy_list) and x[1] > 2) \
-      .map(lambda word: (word,1)) \
-          .reduceByKey(lambda x,y: x + y) 
+        .reduceByKey(lambda x,y: x + y) 
 
 def compute_dale_chall_score(lines):
   print('Working on this')
