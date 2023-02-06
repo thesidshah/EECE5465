@@ -49,8 +49,8 @@ def compute_counts(rdd,numPartitions = 10):
     # pass
     count = rdd.flatMap(lambda line: line.split(" ")) \
       .map(lambda word: strip_non_alpha(to_lower_case(word))) \
-        .map(lambda word: 1) \
-    .reduce(add)
+        .map(lambda word: (word,1)) \
+          .reduceByKey(lambda x,y: x + y) 
     return count
     
 from helpers import find_match
@@ -71,7 +71,8 @@ def count_difficult_words(counts,easy_list):
     """
     # pass   
     return counts.filter(lambda x: not find_match(x[0], easy_list) and x[1] > 2) \
-        .reduceByKey(lambda x,y: x + y) 
+        .map(lambda word: 1) \
+    .reduce(add)
 
 def compute_dale_chall_score(lines):
   print('Working on this')
