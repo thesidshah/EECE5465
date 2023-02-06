@@ -53,7 +53,7 @@ def compute_counts(rdd,numPartitions = 10):
           .reduceByKey(lambda x,y: x + y) 
     return count
     
-
+from helpers import find_match
 def count_difficult_words(counts,easy_list):
     """ Count the number of difficult words in a file.
 
@@ -69,11 +69,13 @@ def count_difficult_words(counts,easy_list):
     A word should be considered difficult if is not the 'same' as a word in easy_list. Two words are the same
     if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
     """
-    pass   
+    # pass   
+    counts = compute_counts(counts)
+    return counts.filter(lambda x: find_match(x, easy_list))
 
 
 
-
+from helpers import create_list_from_file
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = 'Text Analysis via the Dale Chall Formula',formatter_class=argparse.ArgumentDefaultsHelpFormatter)    
     parser.add_argument('mode', help='Mode of operation',choices=['SEN','WRD','UNQ','TOP20','DFF','DCF']) 
@@ -109,6 +111,10 @@ if __name__ == "__main__":
       output = count.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
       for (counts, word) in output:
           print("%s: %i" % (word, counts))
-      
+    elif(args.mode == ""):
+        easy_words = create_list_from_file(args.simple_words)
+        diff_words = count_difficult_words(lines, easy_words).collect()
+        print(diff_words)
+
     end = time()
     print('Total execution time:',str(end-start)+'sec')
