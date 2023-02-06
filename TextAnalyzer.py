@@ -70,9 +70,7 @@ def count_difficult_words(counts,easy_list):
     if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
     """
     # pass   
-    return counts.filter(lambda x: not find_match(x, easy_list)) \
-      .map(lambda word: (word,1)) \
-          .reduceByKey(lambda x,y: x + y) 
+    return counts.filter(lambda x: not find_match(x[0], easy_list))
 
 
 
@@ -114,7 +112,8 @@ if __name__ == "__main__":
           print("%s: %i" % (word, counts))
     elif(args.mode == "DFF"):
         easy_words = create_list_from_file(args.simple_words)
-        diff_words = count_difficult_words(lines, easy_words)
+        counts = compute_counts(lines)
+        diff_words = count_difficult_words(counts, easy_words)
         diff_words = diff_words.collect()
         print(diff_words)
 
