@@ -119,7 +119,7 @@ if __name__ == "__main__":
         diff_words_count = count_difficult_words(counts, easy_words)
         # diff_words = diff_words.collect()
         # output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
-        print(diff_words_count)
+        print(diff_words_count.collect())
 
     end = time()
     print('Total execution time:',str(end-start)+'sec')
