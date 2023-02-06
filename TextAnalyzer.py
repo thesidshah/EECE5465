@@ -114,7 +114,7 @@ if __name__ == "__main__":
         easy_words = create_list_from_file(args.simple_words)
         counts = compute_counts(lines)
         diff_words = count_difficult_words(counts, easy_words)
-        diff_words = diff_words.collect()
+        # diff_words = diff_words.collect()
         output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
         print(output)
 
