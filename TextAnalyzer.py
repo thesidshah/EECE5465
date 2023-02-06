@@ -115,7 +115,8 @@ if __name__ == "__main__":
         counts = compute_counts(lines)
         diff_words = count_difficult_words(counts, easy_words)
         diff_words = diff_words.collect()
-        print(diff_words)
+        output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
+        print(output)
 
     end = time()
     print('Total execution time:',str(end-start)+'sec')
