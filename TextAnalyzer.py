@@ -69,10 +69,9 @@ def count_difficult_words(counts,easy_list):
     A word should be considered difficult if is not the 'same' as a word in easy_list. Two words are the same
     if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
     """
-    # pass   
     easy_list.append('')
     return counts.filter(lambda x: not find_match(x[0], easy_list)) \
-        .map(lambda word: 1) \
+        .map(lambda word: word[1]) \
     .reduce(add)
 
 def compute_dale_chall_score(lines):
