@@ -70,9 +70,12 @@ def count_difficult_words(counts,easy_list):
     if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
     """
     # pass   
-    return counts.filter(lambda x: not find_match(x[0], easy_list) and x[1] > 2)
+    return counts.filter(lambda x: not find_match(x[0], easy_list) and x[1] > 2) \
+      .map(lambda word: (word,1)) \
+          .reduceByKey(lambda x,y: x + y) 
 
-
+def compute_dale_chall_score(lines):
+  print('Working on this')
 
 from helpers import create_list_from_file
 if __name__ == "__main__":
@@ -113,10 +116,10 @@ if __name__ == "__main__":
     elif(args.mode == "DFF"):
         easy_words = create_list_from_file(args.simple_words)
         counts = compute_counts(lines)
-        diff_words = count_difficult_words(counts, easy_words)
+        diff_words_count = count_difficult_words(counts, easy_words)
         # diff_words = diff_words.collect()
-        output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
-        print(output)
+        # output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
+        print(diff_words_count)
 
     end = time()
     print('Total execution time:',str(end-start)+'sec')
