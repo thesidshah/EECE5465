@@ -113,6 +113,7 @@ if __name__ == "__main__":
     elif(args.mode == "DFF"):
         easy_words = create_list_from_file(args.simple_words)
         diff_words = count_difficult_words(lines, easy_words)
+        diff_words = diff_words.collect()
         print(diff_words)
 
     end = time()
