@@ -87,7 +87,6 @@ def find_match(word,word_list):
     The string word is 'the same' as some string x in word_list, if word is the inflection of x,
     ignoring cases and leading or trailing non-alphabetic characters.
     """
-    print(type(word))
     for i in word_list:
         if(same(i,word)):
             return True
