@@ -33,7 +33,7 @@ def strip_non_alpha(s):
     return s
 
 
-def is_inflection_of(s2,s1):
+def is_inflection_of(s1,s2):
     """ Tests if s1 is a common inflection of s2. 
 
     The function first (a) converts both strings to lowercase and (b) strips
@@ -94,7 +94,8 @@ def find_match(word,word_list):
 
 if __name__=="__main__":
     s = "!!sid"
-    assert strip_non_alpha(s) == "sid"
-    assert is_inflection_of('!!sed','!S')
+    assert strip_non_alpha(s) == "sid", "The strip_non_alpha function is incorrect."
+    assert is_inflection_of('!S','!!sed'),  'The inflection function is incorrect.'
+    assert is_inflection_of('taste','tasted'), 'The inflection function is incorrect.'
     assert False == find_match('hello',['he@sllo','frefer','23423'])
-    assert strip_non_alpha("!s!s.") == "s!s"
+    assert strip_non_alpha("!s!s.") == "s!s", "The strip_non_alpha function is incorrect."
