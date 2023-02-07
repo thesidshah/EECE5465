@@ -129,7 +129,7 @@ if __name__ == "__main__":
     elif(args.mode == "DCF"):
       easy_words = create_list_from_file(args.simple_words)
       d = compute_dale_chall_score(lines,args.N,easy_words)
-      print("The Dahl score is %d" % d)
+      print("The Dahl score is %f" % d)
 
     end = time()
     print('Total execution time:',str(end-start)+'sec')
