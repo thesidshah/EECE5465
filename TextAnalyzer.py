@@ -74,8 +74,14 @@ def count_difficult_words(counts,easy_list):
         .map(lambda word: word[1]) \
     .reduce(add)
 
-def compute_dale_chall_score(lines):
-  print('Working on this')
+def compute_dale_chall_score(lines, numPartitions=20, easy_list="/work/courses/EECE5645/HW1/Data/DaleChallEasyWordList.txt"):
+  # print('Working on this')
+  num_words = count_words(lines)
+  counts = compute_counts(lines, numPartitions)
+  num_difficult_words = count_difficult_words(counts, easy_list)
+  num_sentences = count_sentences(lines)
+  dahl_chall = 0.1579 * (num_difficult_words /num_words * 100) + 0.0496 *(num_words/num_sentences)
+  return dahl_chall 
 
 from helpers import create_list_from_file
 if __name__ == "__main__":
@@ -120,6 +126,10 @@ if __name__ == "__main__":
         # diff_words = diff_words.collect()
         # output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
         print(diff_words_count)
+    elif(args.mode == "DCF"):
+      easy_words = create_list_from_file(args.simple_words)
+      d = compute_dale_chall_score(lines,args.N,easy_words)
+      print("The Dahl score is %d" % d)
 
     end = time()
     print('Total execution time:',str(end-start)+'sec')
