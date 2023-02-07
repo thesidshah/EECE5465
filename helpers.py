@@ -96,4 +96,4 @@ if __name__=="__main__":
     s = "!!sid"
     assert strip_non_alpha(s) == "sid"
     assert is_inflection_of('!!sed','!S')
-    print(strip_non_alpha('!'))
+    print(find_match('hello',['he@sllo','frefer','23423']))
