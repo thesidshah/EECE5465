@@ -49,6 +49,7 @@ def compute_counts(rdd,numPartitions = 10):
     # pass
     count = rdd.flatMap(lambda line: line.split(' ')) \
       .map(lambda word: strip_non_alpha(to_lower_case(word))) \
+        .filter(lambda word: word != '') \
         .map(lambda word: (word,1)) \
           .reduceByKey(lambda x,y: x + y, numPartitions = numPartitions)
     return count
