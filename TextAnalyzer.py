@@ -103,7 +103,7 @@ def compute_dale_chall_score(lines, numPartitions=20, easy_list="/work/courses/E
 from helpers import create_list_from_file
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = 'Text Analysis via the Dale Chall Formula',formatter_class=argparse.ArgumentDefaultsHelpFormatter)    
-    parser.add_argument('mode', help='Mode of operation',choices=['SEN','WRD','UNQ','TOP20','DFF','DCF']) 
+    parser.add_argument('mode', help='Mode of operation',choices=['SEN','WRD','UNQ','TOP20','DFF','DCF','DFFP']) 
     parser.add_argument('input', help='Text file to be processed. This file contains text over several lines, with each line corresponding to a different sentence.')
     parser.add_argument('--master',default="local[20]",help="Spark Master")
     parser.add_argument('--N',type=int,default=20,help="Number of partitions to be used in RDDs containing word counts.")
