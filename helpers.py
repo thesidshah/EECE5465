@@ -20,7 +20,7 @@ def create_list_from_file(filename):
         while line:
             wordlist.append(line.strip())
             line = f.readline()
-        return wordlist     
+        return wordlist
 
 import re
 def strip_non_alpha(s):
@@ -29,7 +29,7 @@ def strip_non_alpha(s):
     E.g. ',1what?!"' should become 'what'. Non-alphabetic characters in the middle 
     of the string should not be removed. E.g. "haven't" should remain unaltered."""
 #     pass
-    s = re.sub(r'\W+', '', s)
+    s = re.sub(r"^\W+|\W+$", "", s)
     return s
 
 
@@ -96,4 +96,5 @@ if __name__=="__main__":
     s = "!!sid"
     assert strip_non_alpha(s) == "sid"
     assert is_inflection_of('!!sed','!S')
-    print(find_match('hello',['he@sllo','frefer','23423']))
+    assert False == find_match('hello',['he@sllo','frefer','23423'])
+    assert strip_non_alpha("!s!s.") == "s!s"
