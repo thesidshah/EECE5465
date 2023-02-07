@@ -130,6 +130,7 @@ if __name__ == "__main__":
       output = count.sortBy(lambda x: x[1]).collect()
       for (word, counts) in output:
           print("%s: %i" % (word, counts))
+      print(f"Number of unique words:{len(output)}")
     elif(args.mode == "TOP20"):
       lines = sc.textFile(args.input, args.N)
       count = compute_counts(lines)
