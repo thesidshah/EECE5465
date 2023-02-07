@@ -70,10 +70,26 @@ def count_difficult_words(counts,easy_list):
     A word should be considered difficult if is not the 'same' as a word in easy_list. Two words are the same
     if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
     """
-    easy_list.append('')
     return counts.filter(lambda x: not find_match(x[0], easy_list)) \
         .map(lambda word: word[1]) \
     .reduce(add)
+
+def print_difficult_words(counts,easy_list):
+    """ Print the difficult words in a file.
+
+    Input:
+    - counts: an RDD containing pairs of the form (word,count), where word is a lowercase string, 
+    without leading or trailing non-alphabetic characters, and count is the number of times this word appears
+    in the file.
+    - easy_list: a list of words deemed 'easy'.
+
+
+    Return value: An RDD that contains the difficult words from the input file. 
+
+    A word should be considered difficult if is not the 'same' as a word in easy_list. Two words are the same
+    if one is the inflection of the other, when ignoring cases and leading/trailing non-alphabetic characters. 
+    """
+    return counts.filter(lambda x: not find_match(x[0], easy_list))  
 
 def compute_dale_chall_score(lines, numPartitions=20, easy_list="/work/courses/EECE5645/HW1/Data/DaleChallEasyWordList.txt"):
   # print('Working on this')
@@ -127,6 +143,11 @@ if __name__ == "__main__":
         # diff_words = diff_words.collect()
         # output = diff_words.map(lambda k : (k[1],k[0])).sortByKey(False).take(20)
         print(diff_words_count)
+    elif(args.mode == "DFFP"):
+      easy_words = create_list_from_file(args.simple_words)
+      counts = compute_counts(lines, args.N)
+      diff_words_rdd = print_difficult_words(counts,easy_words).collect()
+      print(diff_words_rdd)
     elif(args.mode == "DCF"):
       easy_words = create_list_from_file(args.simple_words)
       d = compute_dale_chall_score(lines,args.N,easy_words)
