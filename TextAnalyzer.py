@@ -107,7 +107,7 @@ if __name__ == "__main__":
     parser.add_argument('input', help='Text file to be processed. This file contains text over several lines, with each line corresponding to a different sentence.')
     parser.add_argument('--master',default="local[20]",help="Spark Master")
     parser.add_argument('--N',type=int,default=20,help="Number of partitions to be used in RDDs containing word counts.")
-    parser.add_argument('--simple_words',default="DaleChallEasyWordList.txt",help="File containing Dale Chall simple word list. Each word appears in one line.")
+    parser.add_argument('--simple_words',default="/work/courses/EECE5645/HW1/Data/DaleChallEasyWordList.txt",help="File containing Dale Chall simple word list. Each word appears in one line.")
     args = parser.parse_args()
   
     sc = SparkContext(args.master, 'Text Analysis')
