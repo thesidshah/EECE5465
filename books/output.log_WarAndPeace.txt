@@ -1,0 +1,2 @@
+The Dahl score is 3.578591
+Total execution time: 14.293852090835571sec
